@@ -1,0 +1,16 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "API sécurisée pour une application d'avis gastronomiques",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "gitlab.com/ackheron/christopheromand_6_070122"
+  },
+  "author": "Christophe Romand",
+  "license": "ISC"
+}
