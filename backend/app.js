@@ -10,7 +10,6 @@ const app = express();
 
 // importation de morgan "http request logger"
 const morgan = require("morgan");
-// const mongoose = require("mongoose");
 
 /************************** DATA BASE *****************************/
 
