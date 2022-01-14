@@ -11,25 +11,25 @@ const app = express();
 // importation de morgan "http request logger"
 const morgan = require("morgan");
 
+// log des request et des response
+app.use(morgan("dev"));
 /************************** DATA BASE *****************************/
 
 const mongoose = require("./db/db");
 
 /*********************** CORS ****************************/
 
-// app.use
-
-// log des request et des response
-app.use(morgan("dev"));
-
-// route générale
 app.use((req, res, next) => {
-  console.log("requête numéro 1");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+  );
   next();
-});
-
-app.use((req, res, next) => {
-  res.json({ message: "requête numéro 1 et 2 et 3 4" });
 });
 
 // exportation de app.js pour que les autres fichiers puissent y accéder
