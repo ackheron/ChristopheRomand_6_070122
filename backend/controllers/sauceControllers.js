@@ -1,23 +1,12 @@
 //importation
-const Sauce = require("../models/Sauce"); //modèle de la base de donnée
+const Sauce = require("../models/sauces"); //modèle de la base de donnée
 const fs = require("fs"); // accéder au système de fichier
 
 //logique métier
 exports.createSauce = (req, res, next) => {
-  console.log("--->controllers/sauce.js CONTENU: Sauce");
-  console.log(Sauce);
-
-  console.log("--->controllers/sauce.js CONTENU de req.body");
-  console.log(req.body);
-
-  console.log("--->controllers/sauce.js CONTENU de req.body.sauce");
-  console.log(req.body.sauce);
-
   const sauceObject = JSON.parse(req.body.sauce);
 
-  console.log(
-    "--->controllers/sauce.js CONTENU de sauceObject après JSON.parse"
-  );
+  console.log();
   console.log(sauceObject);
 
   delete sauceObject._id; //
@@ -28,8 +17,6 @@ exports.createSauce = (req, res, next) => {
       req.file.filename
     }`,
   });
-  console.log("--->controllers/sauce.js CONTENU de l'OBJET sauce  : ");
-  console.log(sauce);
 
   //enregistrer l'objet dans la base de donné en appelant la méthode save
   sauce
@@ -87,7 +74,6 @@ exports.getAllSauce = (req, res, next) => {
 
 exports.getOneSauce = (req, res, next) => {
   //pour accéder à l'id   req.params.id
-  console.log("--->controllers/sauce.js CONTENU: _id: req.params.id");
   console.log({ _id: req.params.id });
 
   Sauce.findOne({ _id: req.params.id })
