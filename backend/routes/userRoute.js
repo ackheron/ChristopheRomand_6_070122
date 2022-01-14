@@ -1,12 +1,12 @@
 //importations
 const express = require("express");
 const router = express.Router();
-// const userController = require("../controllers/user");
+const userControllers = require("../controllers/userControllers");
 const password = require("../middleware/password");
 
 //les routes
-router.post("/signup", password, userController.signup);
-router.post("/login", userController.login);
+router.post("/signup", password, userControllers.signup);
+router.post("/login", userControllers.login);
 
 //exportation
 module.exports = router;
