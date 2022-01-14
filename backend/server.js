@@ -2,25 +2,69 @@
 
 const http = require("http");
 
-// Importation du module dotenv pour utiliser les variables d'environnement écrites dans le  fichier .env dans le répertoire racine du dossier backend
-
-const dotenv = require("dotenv");
-const result = dotenv.config();
-
 // Appel du fichier app.js
 
 const app = require("./app");
 
+// Importation du module dotenv pour utiliser les variables d'environnement écrites dans le  fichier .env dans le répertoire racine du dossier backend
+
+const dotenv = require("dotenv");
+const result = dotenv.config();
+if (result.error) {
+  throw result.error;
+}
+console.log(result.parsed);
+
 /************************** LE SERVEUR *******************************/
 
-// Paramétrage du port avec la méthode set() de Express et utiliser process.env qui appelle la clé PORT qui retourne sa valeur définie dans votre fichier .env.
+//normalizePort
+//fonction pour normaliser le port
+const normalizePort = (val) => {
+  const port = parseInt(val, 10);
 
-app.set("port", process.env.PORT);
+  if (isNaN(port)) {
+    return val;
+  }
+  if (port >= 0) {
+    return port;
+  }
+  return false;
+};
 
-// Méthode createServer() qui pour chaque requête appelle les fonctions du fichier app.js
+//set le port
+const port = normalizePort(process.env.PORT || "3000");
+app.set("port", port);
 
-const server = http.createServer(app);
+//errorHandler
+const errorHandler = (error) => {
+  if (error.syscall !== "listen") {
+    throw error;
+  }
+  const address = server.address();
+  const bind =
+    typeof address === "string" ? "pipe " + address : "port: " + port;
+  switch (error.code) {
+    case "EACCES":
+      console.error(bind + " requires elevated privileges.");
+      process.exit(1);
+      break;
+    case "EADDRINUSE":
+      console.error(bind + " is already in use.");
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+};
 
-// Écoute des requêtes par le serveur sur le port 3000
+//l'instance du serveur
+const server = http.createServer(app); //retourne une nouvelle instance de http
 
-server.listen(process.env.PORT);
+server.on("error", errorHandler);
+server.on("listening", () => {
+  const address = server.address();
+  const bind = typeof address === "string" ? "pipe " + address : "port " + port;
+  console.log("Listening on " + bind);
+});
+
+server.listen(port);
