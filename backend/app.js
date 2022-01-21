@@ -45,6 +45,9 @@ app.use(
   })
 );
 
+// Gestion des static (images)
+app.use("/images", express.static(path.join(__dirname, "images")));
+
 //l'authentification
 app.use("/api/auth", userRoutes);
 
