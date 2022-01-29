@@ -2,3 +2,10 @@
 /backend/.env
 
 .vscode/
+
+/backend/images/*.jpg
+/backend/images/*.jpeg
+/backend/images/*.png
+/backend/images/*.gif
+/backend/images/*.webp
+/backend/images/*.wbp
