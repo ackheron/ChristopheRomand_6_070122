@@ -49,6 +49,7 @@ const MIME_TYPES = {
   "image/jpg": "jpg",
   "image/jpeg": "jpg",
   "image/png": "png",
+  "image/webp": "wbp",
 };
 /* ################################################ */
 
