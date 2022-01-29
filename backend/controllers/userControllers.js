@@ -10,19 +10,13 @@ const result = dotenv.config();
 if (result.error) {
   throw result.error;
 }
-console.log(result.parsed);
 
 //SIGNUP pour enregistrer un nouvel utilisateur
 exports.signup = (req, res, next) => {
-  console.log("--->controllers/user.js CONTENU: req.body.password");
-  console.log(req.body.password);
-
   //chiffrer l'email dans la base de donnée
   const emailCryptoJs = cryptojs
     .HmacSHA512(req.body.email, `${process.env.CRYPTOJS_RANDOM_SECRET_KEY}`)
     .toString();
-  console.log("--->controllers user.js CONTENU: emailCryptoJs");
-  console.log(emailCryptoJs);
 
   //hasher le mot de passe
   bcrypt
