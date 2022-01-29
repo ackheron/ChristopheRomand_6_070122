@@ -48,11 +48,11 @@ app.use(
 // Gestion des static (images)
 app.use("/images", express.static(path.join(__dirname, "images")));
 
-//l'authentification
+//Route pour l'authentification
 app.use("/api/auth", userRoutes);
 
-//les sauces
+//Route Pour les sauces
 app.use("/api/sauces", sauceRoutes);
-// exportation de app.js pour que les autres fichiers puissent y accéder
 
+// exportation de app.js pour que les autres fichiers puissent y accéder
 module.exports = app;
