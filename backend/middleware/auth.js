@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+
 //importation pour utilisation des variables d'environnements
 const dotenv = require("dotenv");
 const result = dotenv.config();
@@ -8,8 +9,9 @@ if (result.error) {
 
 module.exports = (req, res, next) => {
   try {
-    //récupére le token dans le headers Authorization: Bearer token
-    const token = req.headers.authorization.split(" ")[1]; //on récupére le 2eme élement du tableau qui est le token
+    //Récupération du token dans le headers Authorization: Bearer token
+
+    const token = req.headers.authorization.split(" ")[1]; //on récupéré le 2eme élément du tableau qui est le token
     console.log("--->middleware/auth.js CONTENU: TOKEN");
     console.log(token);
 
