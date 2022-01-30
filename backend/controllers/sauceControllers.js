@@ -1,8 +1,12 @@
-//importation
-const Sauce = require("../models/sauces"); //modèle de la base de donnée
+/************************************** DECLARATIONS ET IMPORTATIONS  ******************************************/
+
+const Sauce = require("../models/sauces"); //modèle de la base de donnée schéma sauces
 const fs = require("fs"); // accéder au système de fichier
 
-//logique métier
+/************************************** LOGIQUE MÉTIER  ******************************************/
+
+/***** Création d'un nouvelle sauce ******/
+
 exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
 
@@ -23,16 +27,19 @@ exports.createSauce = (req, res, next) => {
     .save()
     .then(() =>
       res.status(201).json({
-        message: "Objet enregistré dans la base de donnée",
+        message: "Sauce ajoutée à la base de donnée",
         contenu: req.body,
       })
     )
     .catch((error) => res.status(400).json({ error })); //équivalent de {error : error}
 };
 
+/***** Modification d'une sauce existante ******/
+
 exports.modifySauce = (req, res, next) => {
-  /*si on modifie le fichier image, récupérer le nom du fichier image sauce actuelle pour la suppréssion
+  /* si on modifie le fichier image, récupérer le nom du fichier image sauce actuelle et suppression
   pour éviter d'avoir un fichier inutile dans le dossier images */
+
   if (req.file) {
     Sauce.findOne({ _id: req.params.id })
       .then((sauce) => {
@@ -65,24 +72,31 @@ exports.modifySauce = (req, res, next) => {
     .catch((error) => res.status(404).json({ error }));
 };
 
+/*****  Récupérer toutes les sauces ******/
+
 exports.getAllSauce = (req, res, next) => {
   //utilisation de la méthode find() pour avoir la liste complète
   Sauce.find()
-    .then((lesObjets) => res.status(200).json(lesObjets))
+    .then((lesSauces) => res.status(200).json(lesSauces))
     .catch((error) => res.status(400).json({ error }));
 };
+
+/*****  Récupérer une seule sauce ******/
 
 exports.getOneSauce = (req, res, next) => {
   //pour accéder à l'id   req.params.id
   console.log({ _id: req.params.id });
 
   Sauce.findOne({ _id: req.params.id })
-    .then((lObjet) => res.status(200).json(lObjet))
+    .then((uneSauce) => res.status(200).json(uneSauce))
     .catch((error) => res.status(404).json({ error }));
 };
 
+/*****  Supprimer une sauce ******/
+
 exports.deleteSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
+
     .then((sauce) => {
       const filename = sauce.imageUrl.split("/images/")[1];
       fs.unlink(`images/${filename}`, () => {
