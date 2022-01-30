@@ -1,6 +1,9 @@
 // Déclaration et importation du package NPM jsonwebtoken
 const jwt = require("jsonwebtoken");
 
+// Déclaration et importation du package NPM mongoose-error
+const mongooseError = require("mongoose-error");
+
 //importation pour utilisation des variables d'environnements
 const dotenv = require("dotenv");
 const result = dotenv.config();
@@ -31,7 +34,9 @@ module.exports = (req, res, next) => {
     } else {
       next(); //passer la requête au middleware suivant
     }
-  } catch {
-    res.status(401).json({ error: error | "Requête non authentifiée" });
+  } catch (error) {
+    mongooseError(
+      res.status(401).json({ error: error || "Requête non authentifiée" })
+    );
   }
 };

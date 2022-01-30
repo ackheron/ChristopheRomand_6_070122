@@ -1,6 +1,9 @@
 // Déclaration et importation du package NPM password_validator
 const passwordValidator = require("password-validator");
 
+// Déclaration et importation du package NPM mongoose-error
+const mongooseError = require("mongoose-error");
+
 //création du schema
 let passwordSchema = new passwordValidator();
 
@@ -26,11 +29,12 @@ passwordSchema
 //Vérification de la qualité du password par rapport au schema
 module.exports = (req, res, next) => {
   if (!passwordSchema.validate(req.body.password)) {
-    return res.status(403).json({
-      error:
-        "Le mot de passe n'est pas assez fort, 8 caractères min 25 max, au moins 2 chiffres, des majuscules et minuscules : " +
-        passwordSchema.validate(req.body.password, { list: true }),
-    });
+    return mongooseError(
+      res.status(403).json({
+        message:
+          "Erreur: Le mot de passe n'est pas assez fort, 8 caractères min 25 max, au moins 2 chiffres, des majuscules et minuscules !",
+      })
+    );
   } else {
     next();
   }
