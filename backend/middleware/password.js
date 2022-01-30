@@ -1,23 +1,24 @@
+// Déclaration et importation du package NPM password_validator
 const passwordValidator = require("password-validator");
 
 //création du schema
 let passwordSchema = new passwordValidator();
 
-//le schéma que doit respecter le mot de passe
+//le schéma impose plusieurs conditions de validation pour le mot de passe
 passwordSchema
   .is()
-  .min(8) // Minimum length 8
+  .min(8) // Une longueur minimum de 8 caractères
   .is()
-  .max(100) // Maximum length 100
+  .max(25) // Une longueur maximum de 25 caractères
   .has()
-  .uppercase() // Must have uppercase letters
+  .uppercase() // Doit avoir des lettres majuscules
   .has()
-  .lowercase() // Must have lowercase letters
+  .lowercase() // Doit avoir des lettres minuscules
   .has()
-  .digits(2) // Must have at least 2 digits
+  .digits(2) // Doit avoir au moins 2 chiffres
   .has()
   .not()
-  .spaces() // Should not have spaces
+  .spaces() // Ne doit pas comporter d'espaces
   .is()
   .not()
   .oneOf(["Passw0rd", "Password123"]); // Blacklist these values
@@ -25,9 +26,9 @@ passwordSchema
 //Vérification de la qualité du password par rapport au schema
 module.exports = (req, res, next) => {
   if (!passwordSchema.validate(req.body.password)) {
-    return res.status(400).json({
+    return res.status(403).json({
       error:
-        "Le mot de passe n'est pas assez fort : " +
+        "Le mot de passe n'est pas assez fort, 8 caractères min 25 max, au moins 2 chiffres, des majuscules et minuscules : " +
         passwordSchema.validate(req.body.password, { list: true }),
     });
   } else {
