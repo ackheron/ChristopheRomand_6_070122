@@ -29,7 +29,7 @@ Si la responsable produit de Piiquante souhaite à terme transformer l'applicati
   - Exécuter la commande: `npm install` pour installer les modules nodes.js
 
   - Lancer le serveur avec la commande: `nodemon server` ou `node server`
-
+  - Le fichier .env.example donne un accès temporaire et limité à la base de données, pour l'activer il faut supprimer l'extension .example (.env.example => .env)
   - L'adresse de l'API est: https://localhost:3000/
 
 - Dans un terminal se placer dans le dossier frontend
