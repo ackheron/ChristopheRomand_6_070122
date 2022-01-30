@@ -1,3 +1,4 @@
+// Déclaration et importation du package NPM jsonwebtoken
 const jwt = require("jsonwebtoken");
 
 //importation pour utilisation des variables d'environnements
@@ -15,15 +16,17 @@ module.exports = (req, res, next) => {
     console.log("--->middleware/auth.js CONTENU: TOKEN");
     console.log(token);
 
-    const decodedToken = jwt.verify(token, `${process.env.JWT_DECODEDTOKEN}`);
+    const decodedToken = jwt.verify(token, `${process.env.JWT_DECODEDTOKEN}`); // Fonction verify pour décoder notre token
     console.log("--->middleware/auth.js CONTENU: decodedToken");
     console.log(decodedToken);
 
-    //récupérer le userId qu'il y a à l'intérieur
+    //récupérer le userId qu'il y a à l'intérieur du token
     const userId = decodedToken.userId;
     console.log("--->middleware/auth.js CONTENU: userId");
     console.log(userId);
+
     if (req.body.userId && req.body.userId !== userId) {
+      // si la demande contient un ID utilisateur, nous le comparons à celui extrait du token.
       throw "User ID non valable";
     } else {
       next(); //passer la requête au middleware suivant
