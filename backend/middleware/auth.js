@@ -16,11 +16,11 @@ module.exports = (req, res, next) => {
     console.log("--->middleware/auth.js CONTENU: TOKEN");
     console.log(token);
 
-    const decodedToken = jwt.verify(token, `${process.env.JWT_DECODEDTOKEN}`); // Fonction verify pour décoder notre token
+    const decodedToken = jwt.verify(token, `${process.env.JWT_KEY_TOKEN}`); // Fonction verify pour décoder notre token
     console.log("--->middleware/auth.js CONTENU: decodedToken");
     console.log(decodedToken);
 
-    //récupérer le userId qu'il y a à l'intérieur du token
+    //récupérer le userId qu'il y a à l'intérieur du token déchiffré
     const userId = decodedToken.userId;
     console.log("--->middleware/auth.js CONTENU: userId");
     console.log(userId);
