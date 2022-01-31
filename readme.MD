@@ -36,4 +36,4 @@ Si la responsable produit de Piiquante souhaite à terme transformer l'applicati
 
   - Exécuter la commande: `npm install` pour installer les modules nodes.js
   - Exécuter la commande `npm start`
-  - L'adresse du frontend sue trouve au : https://localhost:8081/
+  - L'adresse du frontend se trouve au : https://localhost:8081/
