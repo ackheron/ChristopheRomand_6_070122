@@ -41,13 +41,13 @@ exports.signup = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }).send(console.log(error)));
 };
 
-//LOGIN pour controller la validité de l'utilisateur
+//LOGIN pour controller la validité de l'utilisateur qui se connecte
 exports.login = (req, res, next) => {
   const emailCryptoJs = cryptojs
     .HmacSHA512(req.body.email, `${process.env.CRYPTOJS_EMAIL_KEY}`)
     .toString();
 
-  //chercher le mail de l'utilisateur chiffré dans la base de donnée s'il existe
+  //chercher avec la méthode findOne() de MongoDB le mail de l'utilisateur chiffré dans la base de donnée collection User s'il existe
   User.findOne({ email: emailCryptoJs })
     .then((user) => {
       if (!user) {

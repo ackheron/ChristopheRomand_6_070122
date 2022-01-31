@@ -24,7 +24,7 @@ passwordSchema
   .spaces() // Ne doit pas comporter d'espaces
   .is()
   .not()
-  .oneOf(["Passw0rd", "Password123"]); // Blacklist these values
+  .oneOf(["Passw0rd", "Password123"]); // Mettre ces valeurs sur liste noire
 
 //Vérification de la qualité du password par rapport au schema
 module.exports = (req, res, next) => {

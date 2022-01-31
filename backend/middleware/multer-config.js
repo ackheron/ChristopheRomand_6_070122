@@ -18,8 +18,9 @@ const storage = multer.diskStorage({
     callback(null, "images"); // la fonction destination indique d'enregistrer les fichiers dans le dossier images
   },
   filename: (request, file, callback) => {
-    const name = Math.floor(Math.random() * 19423798 * Date.now()); // La fonction filename indique une instruction pour changer le nom du fichier
-    const extension = MIME_TYPES[file.mimetype];
+    // La fonction filename indique une instruction pour changer le nom du fichier
+    const name = "sauce" + Date.now(); // Modification du nom
+    const extension = MIME_TYPES[file.mimetype]; // Assignation d'une extension
 
     callback(null, name + "." + extension);
   },

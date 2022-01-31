@@ -6,7 +6,7 @@ const express = require("express");
 // La méthode express.Router() permet de créer des routeurs séparés pour chaque route principale de l' application – on y enregistrez ensuite les routes individuelles.
 const router = express.Router();
 
-// Déclaration et importation du middleware auth qui permet l'authentification par token
+// Déclaration et importation du middleware auth qui protège les routes sélectionnées et vérifiera que l'utilisateur est authentifié par token avant d'autoriser l'envoi de ses requêtes.
 const auth = require("../middleware/auth");
 
 // Déclaration et importation du middleware multer-config qui permet ici l'upload de fichiers images dans le dossier /images
@@ -23,10 +23,10 @@ const likeControllers = require("../controllers/like");
 //Les routes POST pour créer une sauce
 router.post("/", auth, multer, sauceControllers.createSauce);
 
-//Les routes POST pour modifier une sauce
+//Les routes PUT pour modifier une sauce
 router.put("/:id", auth, multer, sauceControllers.modifySauce);
 
-//Les routes POST pour supprimer une sauce
+//Les routes DELETE pour supprimer une sauce
 router.delete("/:id", auth, sauceControllers.deleteSauce);
 
 //Les routes GET pour l'affichage de toutes les sauces
