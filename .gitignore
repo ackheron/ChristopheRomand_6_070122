@@ -9,3 +9,5 @@
 /backend/images/*.gif
 /backend/images/*.webp
 /backend/images/*.wbp
+
+gitCommitFix.sh
